@@ -32,20 +32,30 @@ type DataSource struct {
 
 // JSONData is a representation of the datasource `jsonData` property
 type JSONData struct {
-	AssumeRoleArn           string `json:"assumeRoleArn,omitempty"`
-	AuthType                string `json:"authType,omitempty"`
-	CustomMetricsNamespaces string `json:"customMetricsNamespaces,omitempty"`
-	DefaultRegion           string `json:"defaultRegion,omitempty"`
-	TlsSkipVerify           bool   `json:"tlsSkipVerify,omitempty"`
-	HttpMethod              string `json:"httpMethod,omitempty"`
-	QueryTimeout            string `json:"queryTimeout,omitempty"`
-	TimeInterval            string `json:"timeInterval,omitempty"`
+	AssumeRoleArn                string `json:"assumeRoleArn,omitempty"`
+	AuthType                     string `json:"authType,omitempty"`
+	CustomMetricsNamespaces      string `json:"customMetricsNamespaces,omitempty"`
+	DefaultRegion                string `json:"defaultRegion,omitempty"`
+	TlsSkipVerify                bool   `json:"tlsSkipVerify,omitempty"`
+	HttpMethod                   string `json:"httpMethod,omitempty"`
+	QueryTimeout                 string `json:"queryTimeout,omitempty"`
+	TimeInterval                 string `json:"timeInterval,omitempty"`
+	cloudName                    string `json:"cloudName,omitempty"`
+	azureLogAnalyticsSameAs      bool   `json:"azureLogAnalyticsSameAs,omitempty"`
+	tenantId                     string `json:"tenantId,omitempty"`
+	clientId                     string `json:"clientId,omitempty"`
+	logAnalyticsTenantId         string `json:"logAnalyticsTenantId,omitempty"`
+	logAnalyticsClientId         string `json:"logAnalyticsClientId,omitempty"`
+	subscriptionId               string `json:"subscriptionId,omitempty"`
+	logAnalyticsDefaultWorkspace string `json:"logAnalyticsDefaultWorkspace,omitempty"`
 }
 
 // SecureJSONData is a representation of the datasource `secureJsonData` property
 type SecureJSONData struct {
-	AccessKey string `json:"accessKey,omitempty"`
-	SecretKey string `json:"secretKey,omitempty"`
+	AccessKey                string `json:"accessKey,omitempty"`
+	SecretKey                string `json:"secretKey,omitempty"`
+	clientSecret             string `json:"clientSecret,omitempty"`
+	logAnalyticsClientSecret string `json:"logAnalyticsClientSecret,omitempty"`
 }
 
 func (c *Client) NewDataSource(s *DataSource) (int64, error) {

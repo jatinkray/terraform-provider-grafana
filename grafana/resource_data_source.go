@@ -78,17 +78,45 @@ func ResourceDataSource() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"auth_type": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 						"default_region": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 						"custom_metrics_namespaces": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
 						"assume_role_arn": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"cloud_name": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"log_analytics_asis": {
+							Type:     schema.TypeBool,
+							Optional: true,
+						},
+						"tenant_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"log_analytics_tenant_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"log_analytics_client_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"subscription_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"logAnalytics_default_workspace_id": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
@@ -104,11 +132,21 @@ func ResourceDataSource() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"access_key": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
 						},
 						"secret_key": {
 							Type:      schema.TypeString,
-							Required:  true,
+							Optional:  true,
+							Sensitive: true,
+						},
+						"client_secret": {
+							Type:      schema.TypeString,
+							Optional:  true,
+							Sensitive: true,
+						},
+						"logAnalytics_client_secret": {
+							Type:      schema.TypeString,
+							Optional:  true,
 							Sensitive: true,
 						},
 					},
@@ -238,16 +276,26 @@ func makeDataSource(d *schema.ResourceData) (*gapi.DataSource, error) {
 
 func makeJSONData(d *schema.ResourceData) gapi.JSONData {
 	return gapi.JSONData{
-		AuthType:                d.Get("json_data.0.auth_type").(string),
-		DefaultRegion:           d.Get("json_data.0.default_region").(string),
-		CustomMetricsNamespaces: d.Get("json_data.0.custom_metrics_namespaces").(string),
-		AssumeRoleArn:           d.Get("json_data.0.assume_role_arn").(string),
+		AuthType:                     d.Get("json_data.0.auth_type").(string),
+		DefaultRegion:                d.Get("json_data.0.default_region").(string),
+		CustomMetricsNamespaces:      d.Get("json_data.0.custom_metrics_namespaces").(string),
+		AssumeRoleArn:                d.Get("json_data.0.assume_role_arn").(string),
+		cloudName:                    d.Get("json_data.0.cloud_name").(string),
+		azureLogAnalyticsSameAs:      d.Get("json_data.0.log_analytics_asis").(bool),
+		tenantId:                     d.Get("json_data.0.tenant_id").(string),
+		clientId:                     d.Get("json_data.0.client_id").(string),
+		logAnalyticsTenantId:         d.Get("json_data.0.log_analytics_tenant_id").(string),
+		logAnalyticsClientId:         d.Get("json_data.0.log_analytics_client_id").(string),
+		subscriptionId:               d.Get("json_data.0.subscription_id").(string),
+		logAnalyticsDefaultWorkspace: d.Get("json_data.0.logAnalytics_default_workspace_id").(string),
 	}
 }
 
 func makeSecureJSONData(d *schema.ResourceData) gapi.SecureJSONData {
 	return gapi.SecureJSONData{
-		AccessKey: d.Get("secure_json_data.0.access_key").(string),
-		SecretKey: d.Get("secure_json_data.0.secret_key").(string),
+		AccessKey:                d.Get("secure_json_data.0.access_key").(string),
+		SecretKey:                d.Get("secure_json_data.0.secret_key").(string),
+		clientSecret:             d.Get("secure_json_data.0.client_secret").(string),
+		logAnalyticsClientSecret: d.Get("secure_json_data.0.logAnalytics_client_secret").(string),
 	}
 }
